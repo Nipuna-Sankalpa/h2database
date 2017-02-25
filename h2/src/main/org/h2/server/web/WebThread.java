@@ -29,7 +29,7 @@ import org.h2.util.StringUtils;
  * For each connection to a session, an object of this class is created.
  * This class is used by the H2 Console.
  */
-class WebThread extends WebApp implements Runnable {
+class WebThread extends Amanda_TEST implements Runnable {
 
     protected OutputStream output;
     protected final Socket socket;
