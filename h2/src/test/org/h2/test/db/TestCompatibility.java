@@ -104,7 +104,7 @@ public class TestCompatibility extends TestBase {
         assertEquals("id", rs.getMetaData().getColumnLabel(1));
         assertEquals("name", rs.getMetaData().getColumnLabel(2));
 
-        stat.execute("select COUNT(*), count(*), Count(*), Sum(id) from test");
+        stat.execute("select COUNT(*), count(*), CustomCount(*), Sum(id) from test");
 
         stat.execute("select LENGTH(name), length(name), Length(name) from test");
 

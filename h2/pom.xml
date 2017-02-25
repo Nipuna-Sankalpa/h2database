@@ -135,6 +135,11 @@
       <scope>system</scope>
       <systemPath>${tools.jar}</systemPath>
     </dependency>
+      <dependency>
+          <groupId>org.jetbrains</groupId>
+          <artifactId>annotations-java5</artifactId>
+          <version>RELEASE</version>
+      </dependency>
   </dependencies>
 
   <!-- The test code creates proxy files using javac or tools.jar. Through maven we need to tell it

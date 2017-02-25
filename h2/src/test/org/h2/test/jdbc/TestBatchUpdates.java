@@ -274,7 +274,7 @@ public class TestBatchUpdates extends TestBase {
         retValue[i++] = 1;
         trace("ReturnValue count : " + retValue.length);
         for (int j = 0; j < updateCount.length; j++) {
-            trace("Update Count:" + updateCount[j]);
+            trace("Update CustomCount:" + updateCount[j]);
             trace("Returned Value : " + retValue[j]);
             assertEquals("j:" + j, retValue[j], updateCount[j]);
         }
@@ -384,7 +384,7 @@ public class TestBatchUpdates extends TestBase {
         prep.addBatch();
         try {
             int[] updateCount = prep.executeBatch();
-            trace("Update Count" + updateCount.length);
+            trace("Update CustomCount" + updateCount.length);
         } catch (BatchUpdateException b) {
             batchExceptionFlag = true;
         }
@@ -424,7 +424,7 @@ public class TestBatchUpdates extends TestBase {
         // 1 as Insert Statement will insert only one row
         retValue[i++] = 1;
         for (int j = 0; j < updateCount.length; j++) {
-            trace("Update Count : " + updateCount[j]);
+            trace("Update CustomCount : " + updateCount[j]);
             if (updateCount[j] != retValue[j]) {
                 fail("j=" + j + " right:" + retValue[j]);
             }
@@ -537,7 +537,7 @@ public class TestBatchUpdates extends TestBase {
             int count = rs.getInt(1);
             rs.close();
             stat.close();
-            trace("Count val is: " + count);
+            trace("CustomCount val is: " + count);
             // make sure that we have the correct error code for
             // the failed update.
             if (!(batchUpdates[1] == -3 && count == 1)) {

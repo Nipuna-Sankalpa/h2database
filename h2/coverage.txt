@@ -1,0 +1,21 @@
+[EMMA v2.0.5312 report, generated Fri Feb 24 23:49:47 IST 2017]
+-------------------------------------------------------------------------------
+OVERALL COVERAGE SUMMARY:
+
+[class, %]	[method, %]	[block, %]	[line, %]	[name]
+0%   (0/2)!	0%   (0/15)!	0%   (0/147)!	0%   (0/43)!	all classes
+
+OVERALL STATS SUMMARY:
+
+total packages:	2
+total classes:	2
+total methods:	15
+total executable files:	2
+total executable lines:	43
+
+COVERAGE BREAKDOWN BY PACKAGE:
+
+[class, %]	[method, %]	[block, %]	[line, %]	[name]
+0%   (0/1)!	0%   (0/5)!	0%   (0/41)!	0%   (0/10)!	org.h2.engine
+0%   (0/1)!	0%   (0/10)!	0%   (0/106)!	0%   (0/33)!	org.h2.util
+-------------------------------------------------------------------------------

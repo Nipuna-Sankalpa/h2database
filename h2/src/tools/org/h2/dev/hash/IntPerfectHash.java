@@ -390,7 +390,7 @@ public class IntPerfectHash {
         }
 
         /**
-         * Count the number of set bits.
+         * CustomCount the number of set bits.
          *
          * @param data the array
          * @return the number of set bits

@@ -25,7 +25,7 @@ import org.h2.util.New;
  * The web session keeps all data of a user session.
  * This class is used by the H2 Console.
  */
-class WebSession {
+public class WebSession {
 
     private static final int MAX_HISTORY = 1000;
 
@@ -78,7 +78,7 @@ class WebSession {
      * @param key the key
      * @param value the new value
      */
-    void put(String key, Object value) {
+    public void put(String key, Object value) {
         map.put(key, value);
     }
 
@@ -100,7 +100,7 @@ class WebSession {
      *
      * @param key the key
      */
-    void remove(String key) {
+    public void remove(String key) {
         map.remove(key);
     }
 
@@ -231,11 +231,11 @@ class WebSession {
         return meta;
     }
 
-    Connection getConnection() {
+    public Connection getConnection() {
         return conn;
     }
 
-    DbContents getContents() {
+    public DbContents getContents() {
         return contents;
     }
 

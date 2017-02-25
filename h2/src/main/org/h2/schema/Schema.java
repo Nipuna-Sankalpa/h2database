@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
 import org.h2.api.ErrorCode;
 import org.h2.command.ddl.CreateTableData;
 import org.h2.constraint.Constraint;
@@ -58,15 +59,15 @@ public class Schema extends DbObjectBase {
     /**
      * Create a new schema object.
      *
-     * @param database the database
-     * @param id the object id
+     * @param database   the database
+     * @param id         the object id
      * @param schemaName the schema name
-     * @param owner the owner of the schema
-     * @param system if this is a system schema (such a schema can not be
-     *            dropped)
+     * @param owner      the owner of the schema
+     * @param system     if this is a system schema (such a schema can not be
+     *                   dropped)
      */
     public Schema(Database database, int id, String schemaName, User owner,
-            boolean system) {
+                  boolean system) {
         tablesAndViews = database.newConcurrentStringMap();
         indexes = database.newConcurrentStringMap();
         sequences = database.newConcurrentStringMap();
@@ -104,7 +105,7 @@ public class Schema extends DbObjectBase {
             return null;
         }
         return "CREATE SCHEMA IF NOT EXISTS " +
-            getSQL() + " AUTHORIZATION " + owner.getSQL();
+                getSQL() + " AUTHORIZATION " + owner.getSQL();
     }
 
     @Override
@@ -188,6 +189,7 @@ public class Schema extends DbObjectBase {
 
     /**
      * Set table engine params of this schema.
+     *
      * @param tableEngineParams default table engine params
      */
     public void setTableEngineParams(ArrayList<String> tableEngineParams) {
@@ -198,29 +200,29 @@ public class Schema extends DbObjectBase {
     private Map<String, SchemaObject> getMap(int type) {
         Map<String, ? extends SchemaObject> result;
         switch (type) {
-        case DbObject.TABLE_OR_VIEW:
-            result = tablesAndViews;
-            break;
-        case DbObject.SEQUENCE:
-            result = sequences;
-            break;
-        case DbObject.INDEX:
-            result = indexes;
-            break;
-        case DbObject.TRIGGER:
-            result = triggers;
-            break;
-        case DbObject.CONSTRAINT:
-            result = constraints;
-            break;
-        case DbObject.CONSTANT:
-            result = constants;
-            break;
-        case DbObject.FUNCTION_ALIAS:
-            result = functions;
-            break;
-        default:
-            throw DbException.throwInternalError("type=" + type);
+            case DbObject.TABLE_OR_VIEW:
+                result = tablesAndViews;
+                break;
+            case DbObject.SEQUENCE:
+                result = sequences;
+                break;
+            case DbObject.INDEX:
+                result = indexes;
+                break;
+            case DbObject.TRIGGER:
+                result = triggers;
+                break;
+            case DbObject.CONSTRAINT:
+                result = constraints;
+                break;
+            case DbObject.CONSTANT:
+                result = constants;
+                break;
+            case DbObject.FUNCTION_ALIAS:
+                result = functions;
+                break;
+            default:
+                throw DbException.throwInternalError("type=" + type);
         }
         return (Map<String, SchemaObject>) result;
     }
@@ -248,7 +250,7 @@ public class Schema extends DbObjectBase {
     /**
      * Rename an object.
      *
-     * @param obj the object to rename
+     * @param obj     the object to rename
      * @param newName the new name
      */
     public void rename(SchemaObject obj, String newName) {
@@ -276,7 +278,7 @@ public class Schema extends DbObjectBase {
      * returned.
      *
      * @param session the session
-     * @param name the object name
+     * @param name    the object name
      * @return the object or null
      */
     public Table findTableOrView(Session session, String name) {
@@ -292,7 +294,7 @@ public class Schema extends DbObjectBase {
      * no object with this name exists.
      *
      * @param session the session
-     * @param name the object name
+     * @param name    the object name
      * @return the object or null
      */
     public Index findIndex(Session session, String name) {
@@ -330,7 +332,7 @@ public class Schema extends DbObjectBase {
      * object with this name exists.
      *
      * @param session the session
-     * @param name the object name
+     * @param name    the object name
      * @return the object or null
      */
     public Constraint findConstraint(Session session, String name) {
@@ -377,7 +379,7 @@ public class Schema extends DbObjectBase {
     }
 
     private String getUniqueName(DbObject obj,
-            Map<String, ? extends SchemaObject> map, String prefix) {
+                                 Map<String, ? extends SchemaObject> map, String prefix) {
         String hash = StringUtils.toUpperEnglish(Integer.toHexString(obj.getName().hashCode()));
         String name = null;
         synchronized (temporaryUniqueNames) {
@@ -390,7 +392,7 @@ public class Schema extends DbObjectBase {
             }
             if (name == null) {
                 prefix = prefix + hash + "_";
-                for (int i = 0;; i++) {
+                for (int i = 0; ; i++) {
                     name = prefix + i;
                     if (!map.containsKey(name) && !temporaryUniqueNames.contains(name)) {
                         break;
@@ -406,7 +408,7 @@ public class Schema extends DbObjectBase {
      * Create a unique constraint name.
      *
      * @param session the session
-     * @param table the constraint table
+     * @param table   the constraint table
      * @return the unique name
      */
     public String getUniqueConstraintName(Session session, Table table) {
@@ -423,8 +425,8 @@ public class Schema extends DbObjectBase {
      * Create a unique index name.
      *
      * @param session the session
-     * @param table the indexed table
-     * @param prefix the index name prefix
+     * @param table   the indexed table
+     * @param prefix  the index name prefix
      * @return the unique name
      */
     public String getUniqueIndexName(Session session, Table table, String prefix) {
@@ -442,7 +444,7 @@ public class Schema extends DbObjectBase {
      * Local temporary tables are also returned.
      *
      * @param session the session
-     * @param name the table or view name
+     * @param name    the table or view name
      * @return the table or view
      * @throws DbException if no such object exists
      */
@@ -618,26 +620,30 @@ public class Schema extends DbObjectBase {
     /**
      * Add a linked table to the schema.
      *
-     * @param id the object id
-     * @param tableName the table name of the alias
-     * @param driver the driver class name
-     * @param url the database URL
-     * @param user the user name
-     * @param password the password
+     * @param id             the object id
+     * @param tableName      the table name of the alias
+     * @param driver         the driver class name
+     * @param url            the database URL
+     * @param user           the user name
+     * @param password       the password
      * @param originalSchema the schema name of the target table
-     * @param originalTable the table name of the target table
-     * @param emitUpdates if updates should be emitted instead of delete/insert
-     * @param force create the object even if the database can not be accessed
+     * @param originalTable  the table name of the target table
+     * @param emitUpdates    if updates should be emitted instead of delete/insert
+     * @param force          create the object even if the database can not be accessed
      * @return the {@link TableLink} object
      */
     public TableLink createTableLink(int id, String tableName, String driver,
-            String url, String user, String password, String originalSchema,
-            String originalTable, boolean emitUpdates, boolean force) {
+                                     String url, String user, String password, String originalSchema,
+                                     String originalTable, boolean emitUpdates, boolean force) {
         synchronized (database) {
             return new TableLink(this, id, tableName,
                     driver, url, user, password,
                     originalSchema, originalTable, emitUpdates, force);
         }
+    }
+    
+    public ConcurrentHashMap<String, Index> getIndexes() {
+        return indexes;
     }
 
 }

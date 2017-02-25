@@ -7,6 +7,8 @@ package org.h2.command;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import org.h2.DBInternals.InsertMetaData;
 import org.h2.api.ErrorCode;
 import org.h2.engine.Constants;
 import org.h2.engine.Database;
@@ -174,7 +176,7 @@ public abstract class Command implements CommandInterface {
      * Execute a query and return the result.
      * This method prepares everything and calls {@link #query(int)} finally.
      *
-     * @param maxrows the maximum number of rows to return
+     * @param maxrows    the maximum number of rows to return
      * @param scrollable if the result set must be scrollable (ignored)
      * @return the result set
      */
@@ -251,11 +253,17 @@ public abstract class Command implements CommandInterface {
         synchronized (sync) {
             Session.Savepoint rollback = session.setSavepoint();
             session.setCurrentCommand(this);
+            InsertMetaData.getInstance().indexMap=session.getDatabase().getSchema(session.getCurrentSchemaName()).getIndexes();
+//            session.getDatabase().getSchema(session.getCurrentSchemaName()).getIndex("AMANDA").getColumns();
             try {
                 while (true) {
                     database.checkPowerOff();
                     try {
-                        return update();
+                        long startTime = System.currentTimeMillis();
+                        int i = update();
+                        long endTime = System.currentTimeMillis();
+                        InsertMetaData.getInstance().executedTimeList.add((double) (endTime - startTime));
+                        return i;
                     } catch (DbException e) {
                         start = filterConcurrentUpdate(e, start);
                     } catch (OutOfMemoryError e) {

@@ -164,7 +164,7 @@ public class WebServer implements Service {
      * @param file the file name
      * @return the data
      */
-    byte[] getFile(String file) throws IOException {
+    public byte[] getFile(String file) throws IOException {
         trace("getFile <" + file + ">");
         byte[] data = Utils.getResource("/org/h2/server/web/res/" + file);
         if (data == null) {
@@ -847,7 +847,7 @@ public class WebServer implements Service {
         this.allowChunked = allowChunked;
     }
 
-    boolean getAllowChunked() {
+    public boolean getAllowChunked() {
         return allowChunked;
     }
 

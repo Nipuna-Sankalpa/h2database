@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.StringTokenizer;
+
 import org.h2.engine.Constants;
 import org.h2.engine.SysProperties;
 import org.h2.message.DbException;
@@ -160,6 +161,7 @@ class WebThread extends WebApp implements Runnable {
                                 message += "\r\n";
                                 trace(message);
                                 output.write(message.getBytes());
+                                long startTime = System.currentTimeMillis();
                                 while (it.hasNext()) {
                                     String s = it.next();
                                     s = PageParser.parse(s, session.map);
@@ -173,6 +175,8 @@ class WebThread extends WebApp implements Runnable {
                                     output.write("\r\n".getBytes());
                                     output.flush();
                                 }
+                                long endTime = System.currentTimeMillis();
+                                System.out.println(endTime - startTime);
                                 output.write("0\r\n\r\n".getBytes());
                                 output.flush();
                                 return keepAlive;
@@ -317,7 +321,7 @@ class WebThread extends WebApp implements Runnable {
             // not supported
         } else if (session != null && len > 0) {
             byte[] bytes = DataUtils.newBytes(len);
-            for (int pos = 0; pos < len;) {
+            for (int pos = 0; pos < len; ) {
                 pos += input.read(bytes, pos, len - pos);
             }
             String s = new String(bytes);

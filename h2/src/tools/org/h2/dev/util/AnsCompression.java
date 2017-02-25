@@ -24,7 +24,7 @@ public class AnsCompression {
     }
 
     /**
-     * Count the frequencies of codes in the data, and increment the target
+     * CustomCount the frequencies of codes in the data, and increment the target
      * frequency table.
      *
      * @param freq the target frequency table

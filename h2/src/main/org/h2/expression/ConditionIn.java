@@ -166,6 +166,7 @@ public class ConditionIn extends Condition {
         left.updateAggregate(session);
         for (Expression e : valueList) {
             e.updateAggregate(session);
+            System.out.println("Nipuna");
         }
     }
 
